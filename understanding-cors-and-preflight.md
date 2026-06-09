@@ -1,4 +1,4 @@
-# concepts
+# Concepts
 
 1. What is CORS and why it exists
 
