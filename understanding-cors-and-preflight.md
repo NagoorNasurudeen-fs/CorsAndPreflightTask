@@ -1,6 +1,7 @@
 # concepts
 
 1. What is CORS and why it exists
+
 CORS means Cross Origin Resource Sharing . It allows a web application from one origin to access the resources from other origins regardless of the Same-Origin policy(SOP) enforced by the browser. It exists to solve the problem that is if an origin is compromised by a malicious script, that script could communicate with another origin using the user's credentials. So the browser blocks reading of the response from the cross-origin by using SOP. But today most of the systems deploy frontend and backend servers separately.To allow the communication between the frontend and the backend and securely bypass the SOP, we need to setup CORS.
 
 2. What is an Origin
@@ -9,7 +10,7 @@ An origin is defined using a combination of scheme + host + port . The scheme re
 
 3. What is a Cross-Origin Request
 
-A request is treated as a cross origin request if it attempts to fetch or communicate a different origin. For example consider https://example.com as origin ,the same origin request will be in forms like https://example.com/app/book ,https://example.com/stat/12 etc. The cross origin request will be in the form like http://example.com (different protocol),https://api.example.com (different domain),https://example.com:4000 (different port).
+A request is treated as a cross origin request if it attempts to fetch or communicate a different origin. For example consider `https://example.com` as origin ,the same origin request will be in forms like `https://example.com/app/book` ,`https://example.com/stat/12` etc. The cross origin request will be in the form like `http://example.com` (different protocol),`https://api.example.com `(different domain),`https://example.com:4000` (different port).
 
 4. Simple Requests vs Preflighted Requests
 
@@ -22,27 +23,31 @@ __3__ accepted content-type are application/x-www-form-urlencoded,multipart/form
 A preflight request is the request that doesn't meet the criteria of simple request. These requests can modify the resource in the server or include custom headers. 
 
 5. What is a Preflight OPTIONS Request
+
  For a preflighted requests, the browser first sends an OPTIONS request automatically before sending the actual  request. This request contains no body but headers such as origin , access-control-request-method,access-control-request-headers.The server responds with its CORS policy headers such as access-control-allow-origin ,access-control-allow-methods ,access-control-allow-headers.
 
 6. What Triggers a Preflight
-__1__ If a request contains methods which are not simple http methods eg PUT,DELETE,PATCH etc.  
-__2__ If it contains headers which are not cors-safelisted headers. eg Authorization, X-Requested-With etc
-__3__ If the content-type is other than application/x-www-form-urlencoded,multipart/form-data,text/plain. eg text/xml,application/xml,application/json
+
+* If a request contains methods which are not simple http methods eg PUT,DELETE,PATCH etc. 
+
+* If it contains headers which are not cors-safelisted headers. eg Authorization, X-Requested-With etc
+
+* If the content-type is other than application/x-www-form-urlencoded,multipart/form-data,text/plain. eg text/xml,application/xml,application/json
 
 7. Key CORS Response Headers
 
-access-control-allow-origin = It tells the browser which frontend origins are permitted to see the response of the request.
-access-control-allow-methods = It tells the browser about the allowed methods from the origin to access the resource.
-access-control-allow-headers = It tells the browser about the allowed headers from the origin.
-access-control-allow-credentials = It allows the frontend script to send and read credentials (like cookies) during a cross-origin request.
+* access-control-allow-origin = It tells the browser which frontend origins are permitted to see the response of the request.
+* access-control-allow-methods = It tells the browser about the allowed methods from the origin to access the resource.
+* access-control-allow-headers = It tells the browser about the allowed headers from the origin.
+* access-control-allow-credentials = It allows the frontend script to send and read credentials (like cookies) during a cross-origin request.
 
-__syntax:___
-
+__syntax:__
+```
 access-control-allow-origin : http://example.com
 access-control-allow-methods: get, post, put
 access-control-allow-headers: content-type ,authorization
 Access-Control-Allow-Credentials: true
-
+```
 we cannot set `Access-Control-Allow-Credentials: true` while simultaneously using a wildcard `Access-Control-Allow-Origin: *` . If we do so , then any malicious website could make authenticated requests on behalf of the user and read the responses if credentials and a wildcard origin were allowed together.
 
 8. Why it works in Postman or curl but not in the browser
