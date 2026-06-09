@@ -6,7 +6,7 @@ CORS means Cross Origin Resource Sharing . It allows a web application from one 
 
 2. What is an Origin
 
-An origin is defined using a combination of scheme + host + port . The scheme refers to the protocol used in the connection . eg HTTP ,HTTPS ,FTP etc. The host refers to the domain name eg example.com , api.example.com. The port refers to the port of the process. For same origin requests, scheme ,host and port must be same. If any of these is not same,then it will be treated as Cross-Origin request. 
+An origin is defined using a combination of scheme + host + port . The scheme refers to the protocol used in the connection . eg HTTP ,HTTPS ,FTP etc. The host refers to the domain name eg `example.com` , `api.example.com`. The port refers to the port of the process. For same origin requests, scheme ,host and port must be same. If any of these is not same,then it will be treated as Cross-Origin request. 
 
 3. What is a Cross-Origin Request
 
@@ -15,10 +15,11 @@ A request is treated as a cross origin request if it attempts to fetch or commun
 4. Simple Requests vs Preflighted Requests
 
  A simple request is a request that is considered safe enough to send to the server without asking prior permission. 
+
  Criteria for Simple requests:
-__1__ it should use any of these following methods. Allowed methods = get,post,head 
-__2__ it should only include the standard headers ,automatically set headers.
-__3__ accepted content-type are application/x-www-form-urlencoded,multipart/form-data,text/plain.
+* it should use any of these following methods. Allowed methods = get,post,head 
+* it should only include the standard headers ,automatically set headers.
+* accepted content-type are application/x-www-form-urlencoded,multipart/form-data,text/plain.
 
 A preflight request is the request that doesn't meet the criteria of simple request. These requests can modify the resource in the server or include custom headers. 
 
